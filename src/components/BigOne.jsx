@@ -13,11 +13,15 @@ const BigOne = () => {
         setSelected(...theOne);
       
 
-    }
+  }
+  
+  const filterEmpties = (list) => {
+   return list.elements.filter(el=>el.name !== '');
+  }
 
 
     const addList = (list) => {
-        
+        list.elements = filterEmpties(list)
         list.date= new Date().toLocaleDateString()
         list.id = uuidv4();
         const listsClone =[...lists,list]
@@ -26,7 +30,8 @@ const BigOne = () => {
     }
     const deleteList = () => {
         setLists(prev => prev.filter(el => el.id !== selected.id))
-        setSelected([])
+      setSelected([])
+      console.log(lists)
   }
   
   const addElement = (element) => {
@@ -43,10 +48,8 @@ const BigOne = () => {
   const deleteElement = (element) => {
     
     const clone = selected.elements.filter(el=> el.id !== element.id)
-    
-    setSelected({ ...selected, elements: clone })
     setLists(prev => prev.filter(el => el.id !== selected.id));
-    
+    setSelected(prev => { return { ...prev, elements: clone } })
     setLists(prev => [...prev, selected])
     if (selected.length === 1) deleteAllElements();
    console.log(selected)
@@ -56,8 +59,8 @@ const BigOne = () => {
     if (selected.length === 0) return;
     
     else{
-    setSelected( {...selected, elements:[]} );
-    setSelected( {...selected, elements:[]} );
+    //setSelected( {...selected, elements:[]} );
+    setSelected((prev) => {return{...prev, elements:[]}} );
    
     setLists(prev => prev.filter(el => el.id !== selected.id));
    console.log('selected: ',selected) 

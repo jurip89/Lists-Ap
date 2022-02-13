@@ -53,7 +53,7 @@ const FormPage = ({add}) => {
                   <Button size='large' variant="outlined"  onClick={moreSpace}>Add item to list</Button>    
               </Grid>
               {form.elements.map((el,i) => {
-                  return (<Grid key={i} item xs={12} md={ 12} key={i}>
+                  return (<Grid key={i} item xs={12} md={ 12}>
                       <TextField
                           onChange={(e) => handleItem(e, i)}
                           id="outlined-basic" label="List Item"
